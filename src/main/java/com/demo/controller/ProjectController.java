@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.demo.model.User;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,12 @@ import java.util.Map;
 public class ProjectController {
 
     @RequestMapping(method = RequestMethod.POST,value = "/add")
-    public ResponseEntity<?> add(@RequestParam int value1, @RequestParam int value2){
+    public ResponseEntity<?> add(@RequestParam("userid") int userid, @RequestParam int value1, @RequestParam int value2 , @RequestBody User user){
         JSONObject responseObject = new JSONObject();
         int sum=value1+value2;
         responseObject.put("sum",sum);
+        responseObject.put("id",user.getId());
+        responseObject.put("userid",userid);
         return  new ResponseEntity<>(responseObject.toString(), HttpStatus.OK);
     }
 
@@ -28,5 +31,6 @@ public class ProjectController {
 
         return  new ResponseEntity<>(responseObject.toString(), HttpStatus.OK);
     }
+
 
 }
